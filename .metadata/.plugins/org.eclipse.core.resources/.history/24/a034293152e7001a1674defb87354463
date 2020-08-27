@@ -1,0 +1,10 @@
+package springBootTest2.command;
+
+import javax.validation.constraints.NotEmpty;
+
+public class LoginCommand {
+	@NotEmpty
+	String userId;
+	String userPw
+	
+}

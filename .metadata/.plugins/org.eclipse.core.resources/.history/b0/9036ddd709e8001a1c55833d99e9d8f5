@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" 
+	src="http://code.jquery.com/jquery-latest.js" ></script>
+<script type="text/javascript">
+$(function(){
+	$("#modify").click(function(){
+		location.href="memberInfoPw.mem?id=${memberCommand.userId}"
+	});
+	$("#memDel").click(function(){
+		if(confirm("정말 진짜로 사실 리얼 탈퇴?")){
+			location.href="memberDel.mem?id=${memberCommand.userId}"
+		}
+	});
+});
+</script>
+</head>
+<body>
+
+이름 : <th:block th:text="${ memberCommand.userName }" /><br />
+아이디 : <th:block th:text="${ memberCommand.userId }" /><br />
+이메일  : <th:block th:text="${ memberCommand.userEmail }" /><br />
+생년월일  : <th:block th:text="${#dates.format(memberCommand.userBirth, 'yyyy-MM-dd')}" /><br />
+<!-- 
+	model.addAttribute("standardDate", new Date()); service에 있는 코드
+	<p th:text="${#dates.formatISO(standardDate)}"></p>
+	<p th:text="${#dates.format(standardDate, 'dd-MM-yyyy HH:mm')}"></p>
+	model.addAttribute("localDateTime", LocalDateTime.now());
+	<p th:text="${#dates.formatISO(localDateTime)}"></p>
+ -->
+성별 : 	<th:block th:if="${ memberCommand.userGender == 'M' }">남자</th:block>
+		<th:block th:if="${ memberCommand.userGender == 'F' }">여자</th:block>
+<br />
+연락처 1 : <th:block th:text="${ memberCommand.userPh1 }" /><br />
+연락처 2 : <th:block th:text="${ memberCommand.userPh2 }" /><br />
+등록일 : <th:block th:text="${#dates.format(memberCommand.userRegist, 'yyyy-MM-dd')}" /><br />
+주소  : <th:block th:text="${ memberCommand.userAddr }" /><br />
+<input type="button" name="modify" id ="modify" value="수   정" >
+<input type="button" value="취  소" 
+				onclick = "javascript:history.back();" />
+<input type="button" value="탈퇴" id ="memDel"/>
+</body>
+</html>

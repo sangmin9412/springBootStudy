@@ -1,0 +1,19 @@
+package springBootTest2.controller.main;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import springBootTest2.command.LoginCommand;
+
+@Controller
+public class MainController {
+	@ModelAttribute
+	LoginCommand setLoginCommand() {
+        return new LoginCommand();
+    }
+	@RequestMapping(value = "/")
+	public String home() {
+		return "thymeleaf/index";
+	}
+}

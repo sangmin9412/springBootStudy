@@ -1,0 +1,13 @@
+package springBootTest2.command;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class ChangePwCommand {
+	String userId;
+	String userPw;
+	String newPw;
+	String reNewPw;
+}

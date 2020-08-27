@@ -1,0 +1,5 @@
+package springBootTest2.repository;
+
+public class MemberRepository {
+
+}

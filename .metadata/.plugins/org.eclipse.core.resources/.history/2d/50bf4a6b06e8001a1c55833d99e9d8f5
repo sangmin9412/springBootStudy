@@ -1,0 +1,5 @@
+package springBootTest2.service.member;
+
+public class MemberDetailService {
+
+}

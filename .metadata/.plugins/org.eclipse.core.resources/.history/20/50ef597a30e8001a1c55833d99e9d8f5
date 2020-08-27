@@ -1,0 +1,23 @@
+package springBootTest2.service.member;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import springBootTest2.mapper.MemberMapper;
+
+@Component
+@Service
+public class PwModifyService {
+	@Autowired
+	MemberMapper memberMapper;
+
+	public String execute(String userPw, Model model, HttpSession session) {
+		
+		return null;
+	}
+	
+}

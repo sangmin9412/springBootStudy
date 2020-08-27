@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="pagingFragment">
+	<th:block th:if="${page <= 1 }">[이전]</th:block>
+	<th:block th:if="${page > 1 }">
+		<a th:href="@{{pageUrl}(pageUrl=${pageUrl}})(page=${page - 1} })}">[이전]</a>
+	</th:block>&nbsp;
+	
+	<th:block th:each="num, i : ${#numbers.sequence(startPage, endPage)}">
+		<a th:href="@{{pageUrl}(pageUrl=${pageUrl})(page=${ i.index })}">[[[${i.index}]]]</a>&nbsp;
+	</th:block>
+	
+	<!-- 
+	<c:forEach begin="${startPage }" end="${endPage }" 
+							var="i" step="1">
+	<a href="${pageUrl }page=${i }" >[${i}]</a>&nbsp;
+	</c:forEach>
+	 -->
+	
+	<th:block th:if="${page < maxPage }">
+		<a href= "@{{pageUrl}(pageUrl=${pageUrl}})(page=${page + 1} })}">[다음]</a>
+	</th:block>
+	<th:block th:if="${page >= maxPage }">
+		[다음]
+	</th:block>
+</th:block>
+</html>

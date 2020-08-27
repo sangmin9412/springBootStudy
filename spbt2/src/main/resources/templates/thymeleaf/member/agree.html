@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+ </head>
+ <body>
+  
+<form th:action='@{/register/regist}'  method='post'>
+	<input type='checkbox' name="agree" value="true" required/> 동의
+	<input type='submit' value='다음' />
+</form>
+ </body>
+</html>

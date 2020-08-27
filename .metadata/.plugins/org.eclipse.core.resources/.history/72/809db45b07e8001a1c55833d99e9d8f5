@@ -1,0 +1,17 @@
+package springBootTest2.service.member;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+@Component
+@Service
+public class MemberDetailService {
+
+	public void memberDetail(String userId, Model model) {
+		
+		
+	}
+	
+	
+}

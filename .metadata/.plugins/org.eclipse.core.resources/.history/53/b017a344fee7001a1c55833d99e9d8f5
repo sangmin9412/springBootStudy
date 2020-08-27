@@ -1,0 +1,6 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <footer th:fragment="footerFragment">
+        <p>Footer Content and State Value Check</p>
+        <strong th:text="${ session.authInfo.id }"></strong><br>
+    </footer>
+</html>

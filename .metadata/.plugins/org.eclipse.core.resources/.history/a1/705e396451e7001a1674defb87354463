@@ -1,0 +1,9 @@
+package springBootTest2.controller.main;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class LoginController {
+	
+	
+}

@@ -1,0 +1,24 @@
+package springBootTest2.controller.member;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import springBootTest2.service.member.MemberDetailService;
+
+@Controller
+@RequestMapping("edit")
+public class MemberDetailController {
+	@Autowired
+	private MemberDetailService memberDetailService;
+	@RequestMapping(value = "memberInfo/{id}")
+	public String memberDetail(
+				@PathVariable(value = "id") String userId,
+				Model model
+			) throws Exception {
+		memberDetailService.memberDetail(userId, model);
+		return "thymeleaf/member/memberInfo";
+	}
+}

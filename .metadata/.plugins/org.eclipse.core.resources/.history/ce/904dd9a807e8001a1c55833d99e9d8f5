@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<center>
+	<table width=50% border="1" cellpadding="0" cellspacing="0" >
+	<tr align="center" valign="middle">
+		<td colspan =4 >회원리스트</td>
+		<td align=right >회원수 : <span th:text="${ count }"></span></td>
+	</tr>
+	<tr align="center" valign="middle">
+		<td align="center">회원아이디</td>
+		<td align="center">회원이름</td>
+		<td align="center">회원연락처</td>
+		<td align="center">이메일</td>
+		<td align="center">등록일</td>
+	</tr>
+	<tr th:each="dto : ${ lists }">
+		<td align="center">
+			<a th:text="${dto.userId }" th:href="@{/edit/memberInfo/{id}(id=${dto.userId})}"></a>
+		</td>
+		<td align="center" th:text="${dto.userName }"></td>
+		<td align="center" th:text="${dto.userPh1 }"></td>
+		<td align="center" th:text="${dto.userEmail }"></td>
+		<td align="center" th:text="${dto.userRegist }"></td>
+	</tr>
+	</table>
+	<div align="center">
+		<th:block ></th:block>
+	</div>
+	<table width=50%>
+	<tr align="right"><td><a href="memberRegist" >회원등록</a></td></tr>
+	</table>
+</center>
+</body>
+</html>

@@ -1,0 +1,5 @@
+package springBootTest2;
+
+public @interface Controller {
+
+}

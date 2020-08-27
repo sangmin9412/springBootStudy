@@ -1,0 +1,6 @@
+package springBootTest2.command;
+
+public class LoginCommand {
+	
+	
+}

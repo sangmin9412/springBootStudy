@@ -1,0 +1,5 @@
+package springBootTest2.controller.member;
+
+public class MemberDetailController {
+
+}

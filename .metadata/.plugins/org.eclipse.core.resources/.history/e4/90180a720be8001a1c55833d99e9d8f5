@@ -1,0 +1,38 @@
+package springBootTest2.service.member;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import springBootTest2.domain.MemberDTO;
+import springBootTest2.mapper.MemberMapper;
+
+@Component
+@Service
+public class MemberDetailService {
+	@Autowired
+	MemberMapper memberMapper;
+	public void memberDetail(
+				String userId, 
+				Model model
+			) throws Exception {
+		MemberDTO memberDTO = new MemberDTO(); 
+		memberDTO.setUserId(userId);
+		memberDTO = memberMapper.selectByMember(memberDTO).get(0);
+		
+		model.addAttribute("memberCommand", memberDTO);
+		
+	}
+	@RequestMapping(value = "memberModify")
+	public String memberModify(
+				@RequestParam(value = "userId") String userId,
+				Model model
+			) throws Exception  {
+		return "thymeleaf/member/memberModify";
+	}
+	
+	
+}

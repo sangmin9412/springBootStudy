@@ -1,0 +1,5 @@
+package springBootTest2.controller.main;
+
+public class LoginController {
+
+}

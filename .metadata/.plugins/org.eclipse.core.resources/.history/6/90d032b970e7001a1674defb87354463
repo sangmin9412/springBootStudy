@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootTest2.mapper.MemberMapper">
+	<sql id="basecolumn">
+		USER_ID,
+		USER_PW,
+		USER_NAME,
+		USER_BIRTH,
+		USER_GENDER,
+		USER_EMAIL,
+		USER_ADDR,
+		USER_PH1,
+		USER_PH2,
+		USER_REGIST,
+		JOIN_OK,
+		INTEREST
+	</sql>
+	<insert id="insertMember" parameterType="springBootTest2.domain.MemberDTO">
+		insert into member(<include refid="basecolumn" />)
+		values(
+			#{userId},
+			#{userPw},
+			#{userName},
+			#{userBirth},
+			#{userGender},
+			#{userEmail},
+			#{userAddr},
+			#{userPh1},
+			#{userPh2},
+			sysdate,
+			null,
+			#{interest}
+		)
+	</insert>
+	<update id="joinOkUpdate" parameterType="springBootTest2.domain.MemberDTO">
+		update member
+		set join_ok = #{joinOk}
+		where user_id = #{userId} and user_email = #{userEmail} 
+		and join_ok is null
+	</update>
+	<resultMap type="springBootTest2.domain.MemberDTO" id="baseMember">
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_pw" jdbcType="VARCHAR" property="userPw" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="user_birth" jdbcType="TIMESTAMP" property="userBirth" />
+		<result column="user_gender" jdbcType="VARCHAR" property="userGender" />
+		<result column="user_addr" jdbcType="VARCHAR" property="userAddr" />
+		<result column="user_ph1" jdbcType="VARCHAR" property="userPh1" />
+		<result column="user_ph2" jdbcType="VARCHAR" property="userPh2" />
+		<result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+		<result column="user_regist" jdbcType="TIMESTAMP" property="userRegist" />
+		<result column="interest" jdbcType="VARCHAR" property="interest" />
+	</resultMap>
+	<select id="selectByMember" parameterType="springBootTest2.domain.MemberDTO" resultMap="baseMember">
+		select *
+			from (
+				select rownum rn, <include refid="basecolumn" />
+				from (
+					select *
+					from member
+					<trim prefix="where" prefixOverrides="AND | OR">
+						<if test="userPw != null">
+							and user_pw = #{userPw}
+						</if>
+						<if test="userId != null">
+							and user_id = #{userId} and join_ok is not null
+						</if>
+					</trim>
+					order by user_regist desc
+				)
+			)
+			<where>
+				<if test="startEndPageDTO != null">
+					rn between #{startEndPageDTO.startPage} 
+					and #{startEndPageDTO.endPage}
+				</if>
+			</where>
+	</select>
+</mapper>

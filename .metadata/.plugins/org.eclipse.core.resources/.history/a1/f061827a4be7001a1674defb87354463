@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootTest2.mapper.MemberMapper">
+	<sql id="basecolumn">
+		USER_ID,
+		USER_PW,
+		USER_NAME,
+		USER_BIRTH,
+		USER_GENDER,
+		USER_EMAIL,
+		USER_ADDR,
+		USER_PH1,
+		USER_PH2,
+		USER_REGIST,
+		JOIN_OK,
+		INTEREST
+	</sql>
+	<insert id="insertMember" parameterType="springBootTest2.domain.MemberDTO">
+		insert into member(<include refid="basecolumn" />)
+		values(
+			#{userId},
+			#{userPw},
+			#{userName},
+			#{userBirth},
+			#{userGender},
+			#{userEmail},
+			#{userAddr},
+			#{userPh1},
+			#{userPh2},
+			sysdate,
+			null,
+			#{interest}
+		)
+	</insert>
+	
+</mapper>
