@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import springBootTest2.command.AuthInfo;
+import springBootTest2.command.ChangePwCommand;
 import springBootTest2.domain.MemberDTO;
+import springBootTest2.domain.UserPwChangeDTO;
 import springBootTest2.mapper.MemberMapper;
 
 @Component
@@ -30,6 +32,26 @@ public class PwModifyService {
 		} else {
 			model.addAttribute("valid_Pw", "비밀번호가 틀렸습니다.");
 			return "thymeleaf/mypage/pwModify";
+		}
+	}
+	public String changePw(ChangePwCommand changePwCommand, HttpSession session, Model model) throws Exception {
+		if (!changePwCommand.isNewPwToReNewPw()) {
+			model.addAttribute("valid_reNewPw", "새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+			return "thymeleaf/mypage/pwModify_1";
+		} else {
+			String userId = ((AuthInfo) session.getAttribute("authInfo")).getId();
+			MemberDTO memberDTO = new MemberDTO();
+			memberDTO.setUserId(userId);
+			memberDTO = memberMapper.selectByMember(memberDTO).get(0);
+			
+			if (passwordEncoder.matches(changePwCommand.getUserPw(), memberDTO.getUserPw())) {
+				UserPwChangeDTO dto = new UserPwChangeDTO(userId, passwordEncoder.encode(changePwCommand.getNewPw()));
+				memberMapper.changePw(dto);
+				return "redirect:/mypage/myInfo";
+			} else {
+				model.addAttribute("valid_Pw", "비밀번호가 틀렸습니다.");
+				return "thymeleaf/mypage/pwModify_1";
+			}
 		}
 	}
 	

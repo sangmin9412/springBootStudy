@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" 
 	src="http://code.jquery.com/jquery-latest.js" ></script>
 <script type="text/javascript">
+/*
 $(function(){
 	$("#sbm").click(function(){
 		if($("#pw").val()==""){
@@ -21,17 +22,26 @@ $(function(){
 		$("#frm").submit();
 	});
 });
+*/
 </script>
 
 </head>
 <body>
-<form th:action ="@{/mypage/pwModifyPro}" method="post" name="frm" id="frm" >
-	현재비밀번호 : <input type="password" name = "userPw" id ="pw" /><span th:text="${valid_Pw}"> </span><br />
+<form th:action ="@{/mypage/pwModifyPro}" method="post" name="frm" id="frm" th:object="${changePwCommand}">
+	현재비밀번호 : <input type="password" name = "userPw" id ="pw" />
+	<span th:text="${valid_Pw}"></span>
+	<span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}"></span>
+	<br />
 	새 비밀번호 : <input type="password" name = "newPw" 
-	             id ="newPw" /><br />
+	             id ="newPw" />
+	<span th:if="${#fields.hasErrors('newPw')}" th:errors="*{newPw}"></span>
+	<br />      
 	새 비밀번호 확인 : <input type="password" name = "reNewPw" 
-	             id ="reNewPw" /><span th:text="${valid_reNewPw}"> </span><br />
-	<input type="button" value = "비밀번호변경" id ="sbm"/>
+	             id ="reNewPw" />
+	<span th:text="${valid_reNewPw}"></span>
+	<span th:if="${#fields.hasErrors('reNewPw')}" th:errors="*{reNewPw}"></span>
+	<br />
+	<input type="submit" value = "비밀번호변경" id ="sbm"/>
 </form>	             
 </body>
 </html>

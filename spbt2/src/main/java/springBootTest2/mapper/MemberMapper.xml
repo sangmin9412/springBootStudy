@@ -107,4 +107,9 @@
 			and user_id = #{userId}
 		</trim>
 	</delete>
+	<update id="changePw" parameterType="springBootTest2.domain.UserPwChangeDTO">
+		update member
+		set user_pw = #{newUserPw}
+		where user_id = #{userId}
+	</update>
 </mapper>
