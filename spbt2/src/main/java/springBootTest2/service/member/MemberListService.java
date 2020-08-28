@@ -19,10 +19,10 @@ public class MemberListService {
 	MemberMapper memberMapper;
 	
 	public void memberList(Model model, Integer page) throws Exception {
-		int limit = 10;
+		int limit = 2;
 		int limitPage = 10;
 		
-		Long startRow = ((long)page - 1) * 10 + 1;
+		Long startRow = ((long) page - 1) * limit + 1;
 		Long endRow = startRow + limit - 1;
 		
 		StartEndPageDTO startEndPageDTO = new StartEndPageDTO(startRow, endRow);

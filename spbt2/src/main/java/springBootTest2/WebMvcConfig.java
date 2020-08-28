@@ -13,7 +13,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(new CertificationInterceptor())
 			.addPathPatterns("/**/*")
 			.excludePathPatterns("/register/**/")
-			.excludePathPatterns("/login");
+			.excludePathPatterns("/login")
+			.excludePathPatterns("/test/**/");
 	}
 	
 }

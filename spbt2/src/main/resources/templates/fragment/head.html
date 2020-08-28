@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="headFragment">
+		<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
+		<meta charset="UTF-8" />
+		
+		<!-- 공통 css -->
+		<link rel="stylesheet" href="" />
+		
+		<!-- 공통 js -->
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+		
+		<!-- 개별 css -->
+		<th:block layout:fragment="css"></th:block>
+		
+		<!-- 개별 js -->
+		<th:block layout:fragment="js"></th:block>
+	</head>
+</html>

@@ -2,6 +2,7 @@ package springBootTest2.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 
@@ -28,6 +29,8 @@ public class MemberDTO implements Serializable {
 	String interest;
 	
 	StartEndPageDTO startEndPageDTO;
+	
+	List<CommentDTO> comments;
 
 	public MemberDTO(String userId, String userPw, String userName, Timestamp userBirth, String userGender,
 			String userAddr, String userPh1, String userPh2, String userEmail, Timestamp userRegist, String joinOk,
