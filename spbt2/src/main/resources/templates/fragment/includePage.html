@@ -1,11 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="pagingFragment" th:with="start=${startPage}, last=${endPage}">
+<th:block th:fragment="pagingFragment" th:with="start=${startPage}, last=${endPage}"> <!-- model로 받아온 startPage, endPage 값을 start, end 변수에 담는다-->
 	<th:block th:if="${page <= 1 }">[이전]</th:block>
 	<th:block th:if="${page > 1 }">
 		<a th:href="@{${pageUrl}(page=${page - 1})}">[이전]</a>
 	</th:block>&nbsp;
 	
-	<th:block th:each="pageNum : ${#numbers.sequence(start, last)}">
+	<th:block th:each="pageNum : ${#numbers.sequence(start, last)}"> <!-- 받아온 List가 없으므로 numbers.sequence 를 이용해서 start ~ end 만큼 반복 설정 -->
 		<a th:href="@{${pageUrl}(page=${pageNum})}">[<th:block th:text="${pageNum}" />]</a>&nbsp;
 	</th:block>
 	
@@ -15,13 +15,5 @@
 	<th:block th:if="${page >= maxPage }">
 		[다음]
 	</th:block>
-	<div align="center">
-		<p>PageNumber</p>
-		<th:block th:text="${ startPage }"></th:block>
-		<th:block th:text="${ endPage }"></th:block>
-		<th:block th:text="${ page }"></th:block>
-		<th:block th:text="${ pageUrl }"></th:block>
-		<th:block th:text="${ maxPage }"></th:block>
-	</div>
 </th:block>
 </html>

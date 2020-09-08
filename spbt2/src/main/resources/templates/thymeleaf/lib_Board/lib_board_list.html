@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>lib_board_list.html</title>
+</head>
+<body>
+<h1>lib_board_list.html</h1>
+<table width=50% border="0" cellpadding="0" cellspacing="0">
+
+<th:block th:if="${ libraryList != null }">
+	<tr><td colspan="3">자료실</td>
+		<td align=right>
+			<font size=2>글 개수 : [[${count }]]</font>
+		</td>
+	</tr>
+		
+	<tr align="center" valign="middle" bordercolor="#333333">
+		<td width="8%" height="26">번호</td>
+		<td width="50%">제목</td>
+		<td  width="14%">작성자</td>
+		<td  width="17%">날짜</td>
+		<td width="11%">조회수</td>
+	</tr>
+	
+	<tr th:each="dto, index: ${libraryList}">
+		<td>[[${ ((page - 1) * limit) + index.count }]]</td>
+		<td><a th:href="@{libraryDetail(boardNum=${dto.boardNum })}">[[${dto.boardSubject }]]</a></td>
+		<td>[[${dto.boardName }]]</td>
+		<td>
+			[[${#dates.format(dto.boardDate, 'yyyy-MM-dd')}]]
+		</td>
+		<td>[[${dto.readCount}]]</td>
+	</tr>
+	<tr><td colspan="9" height="50" ></td></tr>
+	<tr>
+		<td colspan="9" align="center"><th:block th:replace="fragment/includePage :: pagingFragment" /></td>
+	</tr>
+</th:block>
+
+<th:block th:if="${ libraryList == null }">
+	<tr><td colspan="4">등록된 댓글이 없습니다.</td></tr>
+</th:block>
+	<tr>
+		<td colspan="9" align="right">
+			<a href="commentBoard">[글쓰기]</a>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

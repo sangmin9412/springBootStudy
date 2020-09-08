@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script>
+	$(function(){
+		console.log("[jQuery Start]");
+		
+		$("#btn").click(function(){
+			if ($("#writer")[0]){
+				alert("정보가 있습니다.");
+				return false;
+			}
+			$.ajax({
+				type: "post",
+				url: "writerInfo",
+				data: {commentNo: "[[${replies.commentDTO.commentNo}]]"},
+				success: function(res) {
+					$("body").append(res);
+				},
+				error: function(e) {
+					console.log(e);
+				}
+			})
+			
+		});
+		
+	});
+</script>
+</head>
+<body>
+<h1>collection1 html</h1>
+<th:block th:with="cmt = ${ replies.commentDTO }">
+	<p>글 번호	: <th:block th:text="${cmt.commentNo}" /></p>
+	<p>아이디	: <th:block th:text="${cmt.cuserId}" /></p>
+	<p>글 제목	: <th:block th:text="${cmt.commentSubject}" /></p>
+	<p>글 내용	: <th:block th:text="${cmt.commentContent}" /></p>
+	<p>작성일	: <th:block th:text="${#dates.format(cmt.regDate, 'yyyy-MM-dd')}" /></p>
+	<button id="btn">작성자 정보 보기</button>
+<form th:action="@{/comment/replyInsert}" method="post" >
+	<input type="hidden" name="cuserId" th:value="${cmt.cuserId}" />
+	<input type="hidden" name="commentNo" th:value="${cmt.commentNo}" />
+	댓글쓰기 : <input type="text" name="replyContent" />
+	<input type="submit" value="댓글 달기" />
+</form>
+</th:block>
+
+<br />
+<hr />
+<th:block th:each="reply : ${ replies.replies }">
+	<th:block th:if="${reply.replyNo != null}">
+		<p style="margin: 0;">답글번호 : <th:block th:text="${ reply.replyNo }" /></p>
+		<p style="margin: 0;">답글 작성자 : <th:block th:text="${ reply.ruserId }" /></p>
+		<p style="margin: 0;">답글내용 : <th:block th:text="${ reply.replyContent }" /></p>
+		<p style="margin: 0;">답글작성일시 : <th:block th:text="${#dates.format(reply.regDate, 'yyyy-MM-dd') }" /></p>
+		<hr />
+	</th:block>
+</th:block>
+</body>
+</html>

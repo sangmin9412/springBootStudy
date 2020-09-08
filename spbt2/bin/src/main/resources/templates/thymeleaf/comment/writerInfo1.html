@@ -1,0 +1,17 @@
+<div style="
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 100;
+	padding: 20px;
+	border: 1px solid #2b2b2b;
+	background: #fbfbfb;
+	font-size: 12px;
+" id="writer" th:with="user=${ writer.memberDTO }">
+	<span th:text="${ user.userId }">아이디</span><br>
+	<span th:text="${ user.userName }">이름</span><br>
+	<span th:text="${ user.userEmail }">이메일</span><br>
+	<span th:text="${#dates.format(user.userBirth, 'yyyy-MM-dd')}">생년월일</span><br>
+	<span th:text="${ user.userPh1 }">연락처</span><br>
+	<span th:text="${ writer.commentDTO.commentNo }">글번호</span>
+</div>

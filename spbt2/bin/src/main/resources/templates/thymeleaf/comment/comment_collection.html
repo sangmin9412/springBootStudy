@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>collection html</h1>
+<p>글 번호	: <th:block th:text="${dto.commentNo}" /></p>
+<p>아이디	: <th:block th:text="${dto.cuserId}" /></p>
+<p>글 제목	: <th:block th:text="${dto.commentSubject}" /></p>
+<p>글 내용	: <th:block th:text="${dto.commentContent}" /></p>
+<p>작성일	: <th:block th:text="${#dates.format(dto.regDate, 'yyyy-MM-dd')}" /></p>
+<form th:action="@{/comment/replyInsert}" method="post" >
+	<input type="hidden" name="cuserId" th:value="${dto.cuserId}" />
+	<input type="hidden" name="commentNo" th:value="${dto.commentNo}" />
+	댓글쓰기 : <input type="text" name="replyContent" />
+	<input type="submit" value="댓글 달기" />
+</form>
+
+<br />
+<hr />
+<th:block th:each="reply : ${ dto.replies }">
+	<th:block th:if="${reply.replyNo != null}">
+		<p style="margin: 0;">답글번호 : <th:block th:text="${ reply.replyNo }" /></p>
+		<p style="margin: 0;">답글 작성자 : <th:block th:text="${ reply.ruserId }" /></p>
+		<p style="margin: 0;">답글내용 : <th:block th:text="${ reply.replyContent }" /></p>
+		<p style="margin: 0;">답글작성일시 : <th:block th:text="${#dates.format(reply.regDate, 'yyyy-MM-dd') }" /></p>
+		<hr />
+	</th:block>
+</th:block>
+</body>
+</html>

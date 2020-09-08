@@ -25,7 +25,8 @@ public class CommentController {
 			@RequestParam(value = "page" , defaultValue = "1") Integer page,
 			Model model) throws Exception {
 		commentListService.execute(model, page);
-		return "comment/comment_list";
+		return "thymeleaf/comment/comment_list";
+		// return "comment/comment_list";
 	}
 	@RequestMapping(value = "commentBoard",method = RequestMethod.GET)
 	public String commentBoard() {

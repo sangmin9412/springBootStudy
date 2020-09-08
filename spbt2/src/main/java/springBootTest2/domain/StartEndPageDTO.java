@@ -10,4 +10,13 @@ import lombok.NoArgsConstructor;
 public class StartEndPageDTO {
 	Long startPage;
 	Long endPage;
+	String userId;
+	String num;
+	
+	public StartEndPageDTO(Long startPage, Long endPage) {
+		super();
+		this.startPage = startPage;
+		this.endPage = endPage;
+	}
+	
 }	

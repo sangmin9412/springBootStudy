@@ -61,12 +61,12 @@ public class MemberJoinService {
 		}
 		
 		if (result != null) {
-			SmsSend ss = new SmsSend();
+			// SmsSend ss = new SmsSend();
 			try {
 				mailAction.sendMail(memberDTO.getUserEmail(), memberDTO.getUserId());
-				ss.smsSend(memberDTO.getUserPh1(), memberDTO.getUserName()+"님 회원가입을 축하합니다.");
+				// ss.smsSend(memberDTO.getUserPh1(), memberDTO.getUserName()+"님 회원가입을 축하합니다.");
 			} catch (Exception e) {
-				ss.smsSend(memberDTO.getUserPh1(), memberDTO.getUserName()+"님 회원가입을 축하합니다. " + "그러나 1254-1254로 문의 바랍니다.");
+				// ss.smsSend(memberDTO.getUserPh1(), memberDTO.getUserName()+"님 회원가입을 축하합니다. " + "그러나 1254-1254로 문의 바랍니다.");
 				e.printStackTrace();
 			}
 		} else {
