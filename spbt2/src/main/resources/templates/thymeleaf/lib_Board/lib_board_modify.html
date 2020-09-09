@@ -9,15 +9,18 @@
 function modifyboard(){
 	modifyform.submit();
 }
-function fileDel(strFile, orgFile, fileSize, btn ){
+function fileDel(strFile, orgFile, fileSize, btn){
 	$.ajax({ 
-		type : "get",	
+		type : "post",	
 		url : "fileDel",
 		dataType : "text",
-		data: {"originalFileName":orgFile,"storeFileName":strFile,
-			"fileSize" : fileSize},
+		data: {
+			"originalFileName":orgFile,
+			"storeFileName":strFile,
+			"fileSize" : fileSize
+		},
 		success : function(result){
-			alert("#"+btn.id)
+			console.log(result);
 			if(result.trim() == 1){
 				$(btn).val("삭제 취소")
 			}else{
@@ -46,7 +49,7 @@ function fileDel(strFile, orgFile, fileSize, btn ){
 		</td>
 		<td>
 			<input name="boardSubject" size="50" maxlength="100" 
-				th:value="${list[0].boardSubject }">
+				th:value="${dto.boardSubject }">
 		</td>
 	</tr>
 	<tr>
@@ -54,18 +57,20 @@ function fileDel(strFile, orgFile, fileSize, btn ){
 			<div align="center">내 용</div>
 		</td>
 		<td>
-			<textarea name="boardContent" cols="67" rows="15">[[${list[0].boardContent }]]</textarea>
+			<textarea name="boardContent" cols="67" rows="15">[[${dto.boardContent }]]</textarea>
 		</td>
 	</tr>
 	<tr>
 			<td>파일</td>
 			<td>
 				<div th:each="file , numStat : ${fileList}" >
-				원본 파일명 : <span th:text="${file.originalfileName}" id="oldOriginalfileName"></span><br />
+				원본 파일명 : <span th:text="${file.originalFileName}" id="oldOriginalfileName"></span><br />
 				저장된 파일 명 : <span th:text="${file.storeFileName }" id="oldStoreFileName"></span><br />
 				파일 사이즈 : <span th:text="${file.fileSize }" id="oldFileSize"></span>
-						   <input type="button" th:id="${'btn'+numStat.index}" value="삭제" 
-						   	th:onclick ="'fileDel(\'' + ${file.storeFileName } + '\',\'' + ${file.originalfileName} + '\',\'' + ${file.fileSize} + '\',this);'"/>
+						   <input type="button" th:id="${'btn'+numStat.index}" value="삭제"
+						   	th:onclick ="|fileDel('${file.storeFileName }', '${file.originalFileName}', '${file.fileSize}', this)|"
+						   	th:attr="data-test=${file.storeFileName}, data-test2=${file.originalFileName}, data-test3=${file.fileSize}"
+						   	/>
 				</div>
 			</td>	
 	</tr>
@@ -99,7 +104,7 @@ function fileDel(strFile, orgFile, fileSize, btn ){
 		</td>
 	</tr>
 </table>
-<input type="text" name="boardNum" th:value="${list[0].boardNum }" />
+<input type="text" name="boardNum" th:value="${dto.boardNum }" />
 </form>
 </body>
 </html>

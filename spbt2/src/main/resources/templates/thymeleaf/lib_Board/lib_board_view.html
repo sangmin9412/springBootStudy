@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -9,12 +7,12 @@
 <body>
 <table cellpadding="0" cellspacing="0">
 	<tr align="center" valign="middle">
-		<td colspan="5">QNA 게시판</td>
+		<td colspan="5">자료실</td>
 	</tr>
 	
 	<tr>
 		<td height="16">제 목&nbsp;&nbsp;</td>
-		<td >[[${list[0].boardSubject }]]</span></td>
+		<td >[[${dto.boardSubject }]]</span></td>
 	</tr>
 	<tr bgcolor="cccccc">
 		<td colspan="2" style="height:1px;">
@@ -26,7 +24,7 @@
 			<table border=0 width=490 height=250 >
 				<tr>
 					<td valign=top>
-					<span th:utext="${#strings.replace(list[0].boardContent, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></span>
+					<span th:utext="${#strings.replace(dto.boardContent, T(System).getProperty('line.separator'), '&lt;br /&gt;')}"></span>
 					</td>
 				</tr>
 			</table>
@@ -36,11 +34,14 @@
 	<tr>
 		<td>파일</td>
 		<td>
-		<div th:each="file :  ${fileList}" >
-		<a th:href="@{/libraryBoard/fileDown/{file}(file=${file.storeFileName+'`'+file.originalfileName})}" >
-			[[${file.originalfileName }]]</a>
-		&nbsp;&nbsp; / &nbsp;&nbsp;[[${file.fileSize }]]Byte
-		</div>
+		<th:block th:if="${ fileList != null }">
+			<div th:each="file :  ${fileList}" >
+			<!-- (file=${file.storeFileName+'`'+file.originalFileName}) -->
+			<a th:href="@{/libraryBoard/fileDown(file=${file.storeFileName+'`'+file.originalFileName})}" >
+				[[${file.originalFileName }]]</a>
+			&nbsp;&nbsp; / &nbsp;&nbsp;[[${file.fileSize }]]Byte
+			</div>
+		</th:block>
 		</td>	
 			
 	</tr>
@@ -52,13 +53,13 @@
 	<tr align="center" valign="middle">
 		<td colspan="5">
 			<font size=2>
-			<a th:href="@{/libraryBoard/libBoardModify(boardNum=${list[0].boardNum}) }">
+			<a th:href="@{/libraryBoard/libBoardModify(boardNum=${dto.boardNum}) }">
 			[수정]
 			</a>&nbsp;&nbsp;
-			<a th:href="@{/libraryBoard/libBoardDel(boardNum=${list[0].boardNum}) }">
+			<a th:href="@{/libraryBoard/libBoardDel(boardNum=${dto.boardNum}) }">
 			[삭제]
 			</a>&nbsp;&nbsp;
-			<a th:href="@{/libraryBoard/library}">[목록]</a>&nbsp;&nbsp;
+			<a th:href="@{/libraryBoard/libraryList}">[목록]</a>&nbsp;&nbsp;
 			</font>
 		</td>
 	</tr>

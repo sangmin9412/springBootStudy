@@ -76,5 +76,22 @@
 		where rn between #{startPage} and #{endPage} 
 	</select>
 	
+	<update id="libraryUpdate" parameterType="springBootTest2.domain.LibraryDTO">
+		update libraryboard
+		<trim prefix="set" suffixOverrides=",">
+			board_subject = #{boardSubject},
+			board_content = #{boardContent},
+			original_file_name = #{originalFileName},
+			store_file_name = #{storeFileName},
+			file_size = #{fileSize},
+		</trim>
+		where board_num = #{boardNum}
+	</update>
+	
+	<update id="updateReadCount" parameterType="string">
+		update libraryboard
+		set read_count = read_count + 1
+		where board_num = #{boardNum}
+	</update>
 	
 </mapper>
