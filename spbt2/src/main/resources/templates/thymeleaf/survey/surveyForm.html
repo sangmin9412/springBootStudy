@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="surveyOk" method="post">
+<div th:each="q, status: ${questions} ">
+<p>
+	[[${status.count }]]번 문제 ) [[${q.questionDTO.questionTitle}]] <br />
+	<th:block th:if="${q.options != null}">
+		<span th:each="options, numStat : ${q.options}">
+			<th:block th:if="${options.optionName != null}">
+				<input type="radio" th:id="${'responses' + status.count + numStat.count}" th:name="${'responses[' + status.count + ']'}" th:value="${options.optionName}" />
+				<label th:for="${'responses' + status.count + numStat.count}">[[${options.optionName}]]</label>
+				</th:block>
+			<th:block th:if="${options.optionName == null}">
+				<input type="text" th:name="${'responses[' + status.count + ']'}" />
+			</th:block>
+		</span>
+	</th:block>
+</p>
+</div>
+<p>
+<label>응답자 위치:<br>
+<input type="text" name="res.location">
+</label>
+</p>
+<p>
+<label>응답자 나이:<br>
+<input type="text" name="res.age">
+</label>
+</p>
+<input type="submit" value="전송">
+</form>
+</body>
+</html>

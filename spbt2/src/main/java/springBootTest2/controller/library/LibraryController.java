@@ -20,6 +20,7 @@ import springBootTest2.command.LibraryBoardCommand;
 import springBootTest2.controller.FileDownLoad;
 import springBootTest2.domain.FileName;
 import springBootTest2.service.FileDelService;
+import springBootTest2.service.library.LibraryBoardDeleteService;
 import springBootTest2.service.library.LibraryBoardDetailService;
 import springBootTest2.service.library.LibraryBoardListService;
 import springBootTest2.service.library.LibraryBoardModifyService;
@@ -36,6 +37,8 @@ public class LibraryController {
 	LibraryBoardDetailService libraryBoardDetailService;
 	@Autowired
 	LibraryBoardModifyService libraryBoardModifyService;
+	@Autowired
+	LibraryBoardDeleteService libraryBoardDeleteService;
 	@Autowired
 	FileDownLoad fileDownLoad;
 	@Autowired
@@ -117,5 +120,22 @@ public class LibraryController {
 				Model model
 			) throws Exception {
 		return libraryBoardModifyService.libBoardModify(libraryBoardCommand, session, model);
+	}
+	@RequestMapping("libBoardDel")
+	public String libBoardDel (
+				@RequestParam(value = "boardNum") String boardNum,
+				Model model
+			) {
+		model.addAttribute("boardNum", boardNum);
+		return "thymeleaf/lib_Board/lib_board_delete";
+	}
+	@RequestMapping("libBoardDelPro")
+	public String libBoardDelPro(
+				@RequestParam(value = "boardNum") String boardNum,
+				@RequestParam(value = "boardPass") String boardPass,
+				HttpSession session,
+				Model model
+			) throws Exception {
+		return libraryBoardDeleteService.execute(boardNum, boardPass, session, model);
 	}
 }

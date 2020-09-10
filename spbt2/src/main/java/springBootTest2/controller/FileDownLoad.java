@@ -20,7 +20,10 @@ public class FileDownLoad {
 		String RealPath = request.getServletContext().getRealPath(path);
 		String originalFileName = fileName.split("`")[1];
 		String storeFileName = fileName.split("`")[0];
-		originalFileName = URLEncoder.encode(originalFileName, "UTF-8");
+		// originalFileName = URLEncoder.encode(originalFileName, "UTF-8");
+		originalFileName = URLEncoder.encode(originalFileName, "UTF-8").replace("+", "%20"); // 띄어쓰기에 +를 공백문자로 변경
+		System.out.println(originalFileName);
+		
 		response.setContentType("application/octet-stream; charset=utf-8");
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + originalFileName + "\";");
         response.setHeader("Content-Transfer-Encoding", "binary");

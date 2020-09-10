@@ -94,4 +94,20 @@
 		where board_num = #{boardNum}
 	</update>
 	
+	<!-- 
+	===⇒ 조건절에 복합식별자에 있는 컬럼을 조건으로 사용을 한다면 복합 식별자의 모든 컬럼이 조건절에 적시해주어야 index를 사용하게 된다.
+	만약 일부 컬럼만 사용하게 되면 index를 사용하지 않게 되므로 시스템 부하에 영향을 미치게 된다.
+	 -->
+	<delete id="libraryDelete" parameterType="springBootTest2.domain.LibraryDTO">
+		delete from libraryboard
+		<trim prefix="where" prefixOverrides="AND | OR">
+			<if test="boardNum != null">
+				and board_num = #{boardNum}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId}
+			</if>
+		</trim>
+	</delete>
+	
 </mapper>

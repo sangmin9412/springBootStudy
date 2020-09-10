@@ -16,5 +16,6 @@ public interface LibraryBoardMapper {
 	public List<LibraryDTO> selectByLibrary(StartEndPageDTO startEndPageDTO) throws Exception;
 	public int libraryUpdate(LibraryDTO dto) throws Exception;
 	public int updateReadCount(String boardNum) throws Exception;
+	public int libraryDelete(LibraryDTO dto) throws Exception;
 	
 }

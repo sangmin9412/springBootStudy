@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootTest2.mapper.SurveyMapper">
+	<sql id="maxNum">
+		select nvl(max(question_num), 0) + 1
+		from question
+		where user_id = #{userId}
+	</sql>
+	<insert id="questionInsert" parameterType="springBootTest2.domain.QuestionDTO">
+		insert into question (QUESTION_NUM, QUESTION_TITLE, USER_ID)
+		values (
+			(<include refid="maxNum" />),
+			#{questionTitle},
+			#{userId}
+		)
+	</insert>
+	<insert id="optionInsert" parameterType="springBootTest2.domain.OptionsDTO">
+		insert into options(QUESTION_NUM, OPTIONS_NUM, OPTIONS_NAME, USER_ID)
+		values (
+			#{questionNum}, 
+			#{optionNum},
+			#{optionName},
+			#{userId}
+		)
+	</insert>
+	
+	<select id="questionNum" parameterType="string" resultType="int">
+		select max(question_num) 
+		from question
+		where user_id = #{userId}
+	</select>
+	
+	<select id="questionCount" resultType="int">
+		select count(*)
+		from question
+		where user_id = 'test1212'
+	</select>
+	
+	<select id="surveySelectAll" resultMap="questionOptionMap" parameterType="int">
+		<!-- 
+		select 
+			q.user_id, 
+			q.question_num, 
+			q.question_title, 
+			o.options_num, 
+			o.options_name
+		from question q, options o
+		where q.question_num = o.question_num(+) 
+			and q.user_id = 'test1212'
+			and q.question_num = #{i}
+		 -->
+		 select *
+		 from (
+		 	select 
+		 		rownum rn,
+				q.user_id, 
+				q.question_num, 
+				q.question_title, 
+				o.options_num, 
+				o.options_name
+			from question q, options o
+			where q.question_num = o.question_num
+				and q.user_id = 'test1212'
+		 )
+		 where rn = #{i}
+	</select>
+	
+	<resultMap type="springBootTest2.domain.QuestionOptionDTO" id="questionOptionMap">
+		<association property="questionDTO" javaType="springBootTest2.domain.QuestionDTO">
+			<id column="user_id" jdbcType="VARCHAR" property="userId" />
+			<result column="question_num" jdbcType="BIGINT" property="questionNum" />
+			<result column="question_title" jdbcType="VARCHAR" property="questionTitle" />
+		</association>
+		<collection property="options" ofType="springBootTest2.domain.OptionsDTO">
+			<id column="options_num" jdbcType="BIGINT" property="optionNum" />
+			<result column="options_name" jdbcType="VARCHAR" property="optionName" />
+		</collection>
+	</resultMap>
+</mapper>
